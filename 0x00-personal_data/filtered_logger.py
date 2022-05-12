@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-""" module for task 0 """
+""" filtered logger module """
 import logging
 import re
 import typing
+
+PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 
 def filter_datum(fields: typing.List[str], redaction: str, message: str,
@@ -34,3 +36,15 @@ class RedactingFormatter(logging.Formatter):
                          super(RedactingFormatter, self).format(record),
                          self.SEPARATOR)
         return s
+
+
+def get_logger() -> logging.Logger:
+    """ logger method that returns a logging.Logger object """
+    userlog = logging.getLogger('user_data')
+    userlog.setLevel(logging.Info)
+    userlog.propagate = False
+    sh = logging.StreamHandler()
+    useFormat = RedactingFormatter(PII_FIELDS)
+    sh.setFormatter(useFormat)
+    userlog.addHandler(sh)
+    return userlog
