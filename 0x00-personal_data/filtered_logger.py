@@ -42,14 +42,14 @@ class RedactingFormatter(logging.Formatter):
 
 def get_logger() -> logging.Logger:
     """ logger method that returns a logging.Logger object """
-    userlog = logging.getLogger('user_data')
-    userlog.setLevel(logging.Info)
-    userlog.propagate = False
+    user_data = logging.getLogger('user_data')
+    user_data.setLevel(logging.Info)
+    user_data.propagate = False
     sh = logging.StreamHandler()
     useFormat = RedactingFormatter(PII_FIELDS)
     sh.setFormatter(useFormat)
-    userlog.addHandler(sh)
-    return userlog
+    user_data.addHandler(sh)
+    return user_data
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
