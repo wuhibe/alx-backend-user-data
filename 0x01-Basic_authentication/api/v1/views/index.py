@@ -32,3 +32,11 @@ def unauth() -> str:
     test for unauthorized error
     """
     return abort(401)
+
+
+@app_views.route('/forbidden/', strict_slashes=False)
+def forbid() -> str:
+    """ GET /api/v1/forbidden
+    test for forbidden request error
+    """
+    return abort(403)
