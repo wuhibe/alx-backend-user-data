@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ Authorization module
 """
-from turtle import st
 from typing import TypeVar, List
 from flask import request
 
