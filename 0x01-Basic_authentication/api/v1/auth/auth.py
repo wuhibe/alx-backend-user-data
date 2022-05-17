@@ -15,12 +15,11 @@ class Auth():
         if path is None or excluded_paths is None:
             return True
         for st in excluded_paths:
-            if st[-2:-1] == '*':
-                pattern = re.compile(st)
-                res = pattern.findall(path)
-                if res:
-                    return False
             if path == st + '/' or path + '/' == st or path == st:
+                return False
+            pattern = re.compile(st)
+            res = pattern.match(path)
+            if res:
                 return False
         return True
 
