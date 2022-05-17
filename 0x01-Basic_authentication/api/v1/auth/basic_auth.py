@@ -2,10 +2,8 @@
 """ Basic Authorization module
 """
 import base64
-
-from httplib2 import RETRIES
+from typing import TypeVar
 from api.v1.auth.auth import Auth
-from typing import TypeVar, Tuple
 from models.user import User
 
 
@@ -42,7 +40,7 @@ class BasicAuth(Auth):
 
     def extract_user_credentials(self,
                                  decoded_base64_authorization_header: str
-                                 ) -> Tuple[str, str]:
+                                 ) -> (str, str):
         """ method to extract user email and password
         """
         if not decoded_base64_authorization_header:
