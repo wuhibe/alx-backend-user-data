@@ -51,7 +51,11 @@ class BasicAuth(Auth):
         lst = decoded_base64_authorization_header.split(':')
         if len(lst) < 2:
             return (None, None)
-        return (lst[0], lst[1])
+        else:
+            email = lst[0]
+            lst.pop(0)
+            passwd = ':'.join(lst)
+        return (email, passwd)
 
     def user_object_from_credentials(self, user_email: str,
                                      user_pwd: str) -> TypeVar('User'):
