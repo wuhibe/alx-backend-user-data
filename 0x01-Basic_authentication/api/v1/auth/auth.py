@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ Authorization module
 """
+import re
 from typing import TypeVar, List
 from flask import request
 
@@ -14,7 +15,10 @@ class Auth():
         if path is None or excluded_paths is None:
             return True
         for st in excluded_paths:
-            if st == path or st + '/' == path or st == path + '/':
+            st = st[:-1]
+            pattern = re.compile('{}*'.format(st))
+            res = pattern.findall(st)
+            if res:
                 return False
         return True
 
