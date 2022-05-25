@@ -54,13 +54,12 @@ class DB:
         return u
 
     def update_user(self, user_id, **kwargs) -> None:
-        """ method to update User in db
+        """ method to update User
         """
         usr = self.find_user_by(id=user_id)
-        for k, v in kwargs.items():
-            if hasattr(usr, k):
-                setattr(usr, k, v)
-            else:
+        for key, value in kwargs.items():
+            if not hasattr(usr, key) or key == 'id':
                 raise ValueError
+            setattr(usr, key, value)
         self._session.commit()
         return None
