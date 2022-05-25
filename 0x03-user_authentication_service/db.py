@@ -68,11 +68,12 @@ class DB:
 
         Raises:
             ValueError: when attempted to set an attribute
-            that User doesn't have
+            that User does not have
         """
         usr = self.find_user_by(id=id)
         for k, v in kwargs.items():
-            if not hasattr(usr, k):
+            if hasattr(usr, k):
+                setattr(usr, k, v)
+            else:
                 raise ValueError
-            setattr(usr, k, v)
         self._session.commit()
