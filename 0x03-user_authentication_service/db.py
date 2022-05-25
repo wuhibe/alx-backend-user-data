@@ -60,7 +60,7 @@ class DB:
             raise NoResultFound
         return u
 
-    def update_user(self, id, **kwargs):
+    def update_user(self, id, **kwargs) -> None:
         """ method to update User in db
 
         Args:
