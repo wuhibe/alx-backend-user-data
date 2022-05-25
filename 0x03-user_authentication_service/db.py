@@ -12,6 +12,7 @@ from user import User, Base
 class DB:
     """DB class
     """
+    id = 1
     def __init__(self) -> None:
         """Initialize a new DB instance
         """
@@ -32,7 +33,8 @@ class DB:
     def add_user(self, email: str, hashed_password: str) -> User:
         """ method to add new User
         """
-        usr = User(email=email, hashed_password=hashed_password)
+        usr = User(id=self.id, email=email, hashed_password=hashed_password)
+        self.id += 1
         self._session.add(usr)
         self._session.commit()
         return usr
