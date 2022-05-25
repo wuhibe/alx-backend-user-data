@@ -44,13 +44,6 @@ class DB:
 
     def find_user_by(self, **kwargs) -> User:
         """ method to find User by passed arguments
-
-        Raises:
-            InvalidRequestError: if no arguments passed
-            NoResultFound: if query result is none
-
-        Returns:
-            User: first match on successful query
         """
         if kwargs is None:
             raise InvalidRequestError
@@ -62,13 +55,6 @@ class DB:
 
     def update_user(self, id, **kwargs) -> None:
         """ method to update User in db
-
-        Args:
-            id (int): id to identify User
-
-        Raises:
-            ValueError: when attempted to set an attribute
-            that User does not have
         """
         usr = self.find_user_by(id=id)
         for k, v in kwargs.items():
