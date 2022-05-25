@@ -53,10 +53,10 @@ class DB:
             raise NoResultFound
         return u
 
-    def update_user(self, id, **kwargs) -> None:
+    def update_user(self, user_id, **kwargs) -> None:
         """ method to update User in db
         """
-        usr = self.find_user_by(id=id)
+        usr = self.find_user_by(id=user_id)
         for k, v in kwargs.items():
             if hasattr(usr, k):
                 setattr(usr, k, v)
