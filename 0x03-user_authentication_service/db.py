@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """DB module
 """
+from requests import session
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -58,3 +59,20 @@ class DB:
         if not u:
             raise NoResultFound
         return u
+
+    def update_user(self, id, **kwargs):
+        """ method to update User in db
+
+        Args:
+            id (int): id to identify User
+
+        Raises:
+            ValueError: when attempted to set an attribute
+            that User doesn't have
+        """
+        usr = self.find_user_by(id=id)
+        for k, v in kwargs.items():
+            if not hasattr(usr, k):
+                raise ValueError
+            setattr(usr, k, v)
+        self._session.commit()
