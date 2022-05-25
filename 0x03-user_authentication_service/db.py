@@ -13,6 +13,7 @@ class DB:
     """DB class
     """
     id = 1
+
     def __init__(self) -> None:
         """Initialize a new DB instance
         """
