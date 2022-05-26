@@ -64,3 +64,14 @@ class Auth:
             return sess_id
         except Exception:
             return null
+
+    def get_user_from_session_id(session_id: str) -> User:
+        """ method to find user by session id
+        """
+        if not session_id:
+            return None
+        try:
+            usr = self._db.find_user_by(session_id=session_id)
+        except Exception:
+            return None
+        return usr
