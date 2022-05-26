@@ -3,7 +3,6 @@
 """
 import uuid
 import bcrypt
-from sqlalchemy import null
 from sqlalchemy.orm.exc import NoResultFound
 from db import DB
 from user import User
@@ -63,15 +62,14 @@ class Auth:
             self._db.update_user(usr.id, session_id=sess_id)
             return sess_id
         except Exception:
-            return null
+            return None
 
     def get_user_from_session_id(session_id: str) -> User:
         """ method to find user by session id
         """
-        if not session_id:
-            return None
         try:
             usr = self._db.find_user_by(session_id=session_id)
+            return usr
         except Exception:
-            return None
-        return usr
+            pass
+        return None
