@@ -52,7 +52,7 @@ def logout():
     """
     session_id = request.form.get('session_id')
     usr = AUTH.get_user_from_session_id(session_id)
-    if not session_id and not usr:
+    if not session_id or not usr:
         abort(403)
     AUTH.destroy_session(usr.id)
     return redirect('/')
