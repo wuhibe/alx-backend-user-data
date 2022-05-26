@@ -69,9 +69,10 @@ class Auth:
                                  ) -> typing.Union[User, None]:
         """ method to find user by session id
         """
+        if not session_id:
+            return None
         try:
             usr = self._db.find_user_by(session_id=session_id)
             return usr
         except Exception:
-            pass
-        return None
+            return None
