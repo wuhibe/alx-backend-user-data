@@ -3,6 +3,7 @@
 """
 import uuid
 import bcrypt
+from sqlalchemy import null
 from sqlalchemy.orm.exc import NoResultFound
 from db import DB
 from user import User
@@ -52,3 +53,14 @@ class Auth:
         except Exception:
             pass
         return False
+
+    def create_session(self, email: str) -> str:
+        """ method to create a session for user
+        """
+        try:
+            usr = self._db.find_user_by(email=email)
+            sess_id = _generate_uuid()
+            self._db.update_user(usr.id, session_id=sess_id)
+            return sess_id
+        except Exception:
+            return null
