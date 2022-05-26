@@ -4,9 +4,10 @@
 import bcrypt
 from sqlalchemy.orm.exc import NoResultFound
 from db import DB
+from user import User
 
 
-def _hash_password(password) -> str:
+def _hash_password(password: str) -> str:
     """ method to generate a hashed password
         from a given string
     """
@@ -22,7 +23,7 @@ class Auth:
     def __init__(self):
         self._db = DB()
 
-    def register_user(self, email, password):
+    def register_user(self, email: str, password: str) -> User:
         """ method to register User
         """
         try:
