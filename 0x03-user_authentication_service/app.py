@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ module for a flask app
 """
+from cgitb import reset
 from crypt import methods
 from flask import Flask, jsonify, request, abort, make_response, redirect
 from auth import Auth
@@ -83,6 +84,21 @@ def get_reset_password_token():
     else:
         return jsonify({"email": email,
                         "reset_token": token})
+
+
+@app.route('/reset_password', methods=['PUT'], strict_slashes=False)
+def update_password():
+    """ function to update user password
+    """
+    email = request.form.get('email')
+    reset_token = request.form.get('reset_token')
+    newpass = request.form.get('new_password')
+    try:
+        AUTH.update_password(reset_token, newpass)
+    except ValueError:
+        abort(403)
+    else:
+        return jsonify({"email": email, "message": "Password updated"})
 
 
 if __name__ == "__main__":
