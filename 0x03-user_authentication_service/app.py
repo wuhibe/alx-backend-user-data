@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ module for a flask app
 """
-from flask import Flask, jsonify, request, abort, make_response
+from flask import Flask, jsonify, request, abort, make_response, redirect
 from auth import Auth
 
 app = Flask(__name__)
@@ -44,6 +44,18 @@ def login():
         return resp
     else:
         abort(401)
+
+
+@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
+def logout():
+    """ function to destroy session of logged in user
+    """
+    session_id = request.form.get('session_id')
+    usr = AUTH.get_user_from_session_id(session_id)
+    if not session_id and not usr:
+        abort(403)
+    AUTH.destroy_session(usr.id)
+    return redirect('/')
 
 
 if __name__ == "__main__":
