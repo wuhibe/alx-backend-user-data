@@ -65,7 +65,7 @@ class Auth:
         except Exception:
             return None
 
-    def get_user_from_session_id(session_id: str
+    def get_user_from_session_id(self, session_id: str
                                  ) -> typing.Union[User, None]:
         """ method to find user by session id
         """
