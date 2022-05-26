@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ module for auth
 """
+import typing
 import uuid
 import bcrypt
 from sqlalchemy.orm.exc import NoResultFound
@@ -64,7 +65,8 @@ class Auth:
         except Exception:
             return None
 
-    def get_user_from_session_id(session_id: str) -> User:
+    def get_user_from_session_id(session_id: str
+                                 ) -> typing.Union[User, None]:
         """ method to find user by session id
         """
         try:
