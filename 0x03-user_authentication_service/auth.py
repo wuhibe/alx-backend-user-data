@@ -86,3 +86,15 @@ class Auth:
             self._db.update_user(usr.id, session_id=None)
         except Exception:
             pass
+
+    def get_reset_password_token(self, email: str) -> str:
+        """ method that updates reset token field of user
+        """
+        try:
+            usr = self._db.find_user_by(email=email)
+        except Exception:
+            raise ValueError
+        else:
+            id = _generate_uuid()
+            usr.reset_token = id
+            return id
