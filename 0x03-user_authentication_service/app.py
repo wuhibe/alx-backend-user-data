@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ module for a flask app
 """
+from crypt import methods
 from flask import Flask, jsonify, request, abort, make_response, redirect
 from auth import Auth
 
@@ -67,6 +68,21 @@ def profile():
     if not session_id or not usr:
         abort(403)
     return jsonify({"email": usr.email})
+
+
+@app.route('/reset_password', methods=['POST'], strict_slashes=False)
+def get_reset_password_token():
+    """ function to respond to the
+        POST /reset_password route
+    """
+    email = request.form.get('email')
+    try:
+        token = AUTH.get_reset_password_token(email)
+    except ValueError:
+        abort(403)
+    else:
+        return jsonify({"email": email,
+                        "reset_token": token})
 
 
 if __name__ == "__main__":
