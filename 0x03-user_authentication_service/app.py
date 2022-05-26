@@ -50,7 +50,7 @@ def login():
 def logout():
     """ function to destroy session of logged in user
     """
-    session_id = request.form.get('session_id')
+    session_id = request.cookies.get('session_id')
     usr = AUTH.get_user_from_session_id(session_id)
     if not session_id or not usr:
         abort(403)
